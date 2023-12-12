@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniGame", "MiniGame\MiniGame.csproj", "{F9412379-BC2B-4C89-8D3F-420877E4A259}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyBoard", "KeyBoard\KeyBoard.csproj", "{7A4F0F1B-C3F9-4B00-962B-1A1029CB81CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{E7D0C3EC-1CD9-4494-93A0-34F9F865A253}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9412379-BC2B-4C89-8D3F-420877E4A259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9412379-BC2B-4C89-8D3F-420877E4A259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9412379-BC2B-4C89-8D3F-420877E4A259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9412379-BC2B-4C89-8D3F-420877E4A259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A4F0F1B-C3F9-4B00-962B-1A1029CB81CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A4F0F1B-C3F9-4B00-962B-1A1029CB81CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A4F0F1B-C3F9-4B00-962B-1A1029CB81CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A4F0F1B-C3F9-4B00-962B-1A1029CB81CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7D0C3EC-1CD9-4494-93A0-34F9F865A253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7D0C3EC-1CD9-4494-93A0-34F9F865A253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7D0C3EC-1CD9-4494-93A0-34F9F865A253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7D0C3EC-1CD9-4494-93A0-34F9F865A253}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

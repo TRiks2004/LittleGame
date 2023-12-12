@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "MiniGame/1.0.0": {
+        "dependencies": {
+          "KeyBoard": "1.0.0"
+        },
+        "runtime": {
+          "MiniGame.dll": {}
+        }
+      },
+      "KeyBoard/1.0.0": {
+        "runtime": {
+          "KeyBoard.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MiniGame/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "KeyBoard/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

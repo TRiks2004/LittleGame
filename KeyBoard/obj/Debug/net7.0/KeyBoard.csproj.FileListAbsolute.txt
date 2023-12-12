@@ -1,0 +1,12 @@
+/home/triks/RiderProjects/MiniGame/KeyBoard/bin/Debug/net7.0/KeyBoard.deps.json
+/home/triks/RiderProjects/MiniGame/KeyBoard/bin/Debug/net7.0/KeyBoard.dll
+/home/triks/RiderProjects/MiniGame/KeyBoard/bin/Debug/net7.0/KeyBoard.pdb
+/home/triks/RiderProjects/MiniGame/KeyBoard/obj/Debug/net7.0/KeyBoard.csproj.AssemblyReference.cache
+/home/triks/RiderProjects/MiniGame/KeyBoard/obj/Debug/net7.0/KeyBoard.GeneratedMSBuildEditorConfig.editorconfig
+/home/triks/RiderProjects/MiniGame/KeyBoard/obj/Debug/net7.0/KeyBoard.AssemblyInfoInputs.cache
+/home/triks/RiderProjects/MiniGame/KeyBoard/obj/Debug/net7.0/KeyBoard.AssemblyInfo.cs
+/home/triks/RiderProjects/MiniGame/KeyBoard/obj/Debug/net7.0/KeyBoard.csproj.CoreCompileInputs.cache
+/home/triks/RiderProjects/MiniGame/KeyBoard/obj/Debug/net7.0/KeyBoard.dll
+/home/triks/RiderProjects/MiniGame/KeyBoard/obj/Debug/net7.0/refint/KeyBoard.dll
+/home/triks/RiderProjects/MiniGame/KeyBoard/obj/Debug/net7.0/KeyBoard.pdb
+/home/triks/RiderProjects/MiniGame/KeyBoard/obj/Debug/net7.0/ref/KeyBoard.dll
