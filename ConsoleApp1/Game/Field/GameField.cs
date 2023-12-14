@@ -279,7 +279,7 @@ public class GameField
         
         Log.AddLn(_rectangulars[_rectangularsIndex].SizeRectangular.ToString());
         
-        Log.Show();
+        // Log.Show();
        
     }
     

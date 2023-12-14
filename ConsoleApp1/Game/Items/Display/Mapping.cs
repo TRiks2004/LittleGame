@@ -65,4 +65,9 @@ public enum Mapping
     /// вверх и горизонтально : 155
     /// </summary>
     HorizontallyCenterUp = 155,
+    
+    /// <summary>
+    /// Крест : 156
+    /// </summary>
+    VerticallyAndHorizontally = 156,
 }

@@ -21,8 +21,9 @@ public class Symbol
         
         if (symbol == Mapping.HorizontallyCenterDown) return "\u2533";
         if (symbol == Mapping.HorizontallyCenterUp) return "\u253b";
-        
 
+        if (symbol == Mapping.VerticallyAndHorizontally) return "\u254b";
+        
         throw new Exception("Symbol not found");
     }
 

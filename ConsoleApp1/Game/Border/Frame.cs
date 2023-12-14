@@ -1,86 +1,53 @@
-using ConsoleApp1.Game.Items.Display;
+using ConsoleApp1.Game.Border.Container;
+using ConsoleApp1.Game.Border.Container.ItemContainer;
 using ConsoleApp1.Game.Items.Matrix;
 using ConsoleApp1.Game.Players;
+using ConsoleApp1.Game.Rules.Management;
 
 namespace ConsoleApp1.Game.Border;
 
 using ConsoleApp1.Game.Layers;
 
-
-// рамка 
-// Игра
-// Доп. доп поле 
-// окно с права 
-
-
-
-
-
 public class Frame
 {
-    
-    public static string GetOptions(int width, Player playerNow)
-    {
-        var name = $"{Symbol.GetCharFromSymbol(Mapping.VerticalLine)} " 
-                   + playerNow.Name 
-                   + $" {Symbol.GetCharFromSymbol(Mapping.VerticalLine)}";
-        
-        var text = "";
-
-        text += 
-            Symbol.GetCharFromSymbol(Mapping.VerticalCenterRight) + 
-            
-            new string(Symbol.GetCharFromSymbol(Mapping.HorizontalLine)[0], width - name.Length + 1) +
-            Symbol.GetCharFromSymbol(Mapping.HorizontallyCenterDown) +
-            new string(Symbol.GetCharFromSymbol(Mapping.HorizontalLine)[0], name.Length - 2) + 
-            Symbol.GetCharFromSymbol(Mapping.VerticalCenterLeft) + "\n";
-        
-        text += Symbol.GetCharFromSymbol(Mapping.VerticalLine) +
-            new string(' ', width - name.Length + 1) +
-            name + "\n";
-        
-        text += 
-            Symbol.GetCharFromSymbol(Mapping.LowerLeftCorner) + 
-            
-            new string(Symbol.GetCharFromSymbol(Mapping.HorizontalLine)[0], width - name.Length + 1) +
-            Symbol.GetCharFromSymbol(Mapping.HorizontallyCenterUp) +
-            new string(Symbol.GetCharFromSymbol(Mapping.HorizontalLine)[0], name.Length - 2) + 
-            Symbol.GetCharFromSymbol(Mapping.LowerRightCorner);
-        
-        return text;
-    } 
-    
     
     public static void ConsoleWrite(Layers layers, Player playerNow)
     {
         Console.Clear();
+
+        var size = layers.SizeLayers + new Size(2, 2);
         
-        Console.SetCursorPosition(0,0);
-        Console.Write(Symbol.GetCharFromSymbol(Mapping.UpperLeftCorner) +
-                      new string(Symbol.GetCharFromSymbol(Mapping.HorizontalLine)[0], layers.SizeLayers.Width)
-                      +Symbol.GetCharFromSymbol(Mapping.UpperRightCorner)
-                      );
+        var partsBottomLayerInfo = new ContainerLine(Alignment.Alignment.End);
         
-        for (int i = 0; i < layers.SizeLayers.Height; i++)
+        partsBottomLayerInfo.Add(new ContainerLinePart("Player: " + playerNow.Name, playerNow.RealColor));
+        
+        #region Rules
+
+        var management = new ManagementGame();
+        
+        var listPartsRules = new List<ContainerLinePart>();
+        foreach (var keyboardKey in management.GetKeys())
         {
-            Console.SetCursorPosition(0,i + 1);
-            Console.Write(Symbol.GetCharFromSymbol(Mapping.VerticalLine));
-            
-            Console.SetCursorPosition(layers.SizeLayers.Width + 1,i + 1);
-            Console.Write(Symbol.GetCharFromSymbol(Mapping.VerticalLine));
+            listPartsRules.Add(new ContainerLinePart(
+                $"{keyboardKey.Symbol} - {keyboardKey.Destination}", 
+                keyboardKey.Color));
         }
         
-        Console.SetCursorPosition(0, layers.SizeLayers.Height + 1);
-        Console.Write(GetOptions(layers.SizeLayers.Width, playerNow));
+        var partsBottomLayerRules = new ContainerLine(listPartsRules, Alignment.Alignment.Center);
+
+        #endregion
         
-        Console.SetCursorPosition(0, layers.SizeLayers.Height + 1);
-        Console.Write(GetOptions(layers.SizeLayers.Width, playerNow));
+        var lowerLayer = new BottomContainer(size);
         
+        lowerLayer.Add(partsBottomLayerInfo);
+        lowerLayer.Add(partsBottomLayerRules);
         
+
+        lowerLayer.ConsoleWrite();
+        
+
         layers.ConsoleWrite(new Shift(1, 1));
     }
-    
-    
-    
-}
-
+ } 
+ 
+       
