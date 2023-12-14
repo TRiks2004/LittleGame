@@ -18,6 +18,12 @@ public class ContainerLinePart
 
     public ConsoleColor Color { get; set; }
     
+    public ContainerLinePart(string text)
+    {
+        Text = text;
+        Color = ConsoleColor.White;
+    }
+    
     public ContainerLinePart(string text, ConsoleColor color )
     {
         Text = text;

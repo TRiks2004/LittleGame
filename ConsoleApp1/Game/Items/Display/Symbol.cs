@@ -5,7 +5,7 @@ public class Symbol
     public static string GetCharFromSymbol(Mapping symbol)
     {
         if (symbol == Mapping.Void) return " ";
-        if (symbol == Mapping.VoidSquare) return " ";
+        if (symbol == Mapping.VoidSquare) return "";
 
         if (symbol == Mapping.UpperRightCorner) return "\u2513";
         if (symbol == Mapping.UpperLeftCorner) return "\u250f";

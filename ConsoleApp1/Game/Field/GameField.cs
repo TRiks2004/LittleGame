@@ -49,6 +49,10 @@ public class GameField
     
     private readonly GameRules _rules;
     
+    private bool _isEnd = false;
+    private int _pass;
+    
+    
     public GameField(Size sizeGameField, int countPlayers, GameRules? gameRules = null)
     {
         _sizeGameField = sizeGameField;
@@ -89,7 +93,7 @@ public class GameField
         listener.OnKeyPressLeft += ListenerOnOnKeyPressLeft;
         
         listener.OnKeyPressSpace += ListenerOnOnKeyPressSpace;
-        
+        listener.OnKeyPressEnter += ListenerOnOnKeyPressEnter;
         
         listener.StartKeyBoardListener();
 
@@ -109,7 +113,19 @@ public class GameField
         
     }
 
-    
+    private void ListenerOnOnKeyPressEnter()
+    {
+        _pass++;
+        SpawnRectangular();
+        
+        if (_pass == _players.Count)
+        {
+            _isEnd = true;
+            Log.AddLn("Игра окончена");
+        }
+    }
+
+
     private void SpawnRectangular()
     {
         _rectangularsIndex++;
@@ -137,6 +153,8 @@ public class GameField
             null,
             cords
         ));
+
+        
     }
     
     private bool CheckRectangularTouch()
@@ -146,7 +164,7 @@ public class GameField
         
         var outher = 0;
 
-
+        // Cлева
         outher = x - 1;
         if (outher >= 0)
             for (var i = y; i < y + _rectangulars[_rectangularsIndex].SizeRectangular.Height; i++)
@@ -157,6 +175,7 @@ public class GameField
                 }
             }
 
+        // Сверху
         outher = y - 1; 
         if (outher >= 0)
             for (var i = x; i < x + _rectangulars[_rectangularsIndex].SizeRectangular.Width; i++)
@@ -167,8 +186,9 @@ public class GameField
                 }
             }
 
-        outher = x + _rectangulars[_rectangularsIndex].SizeRectangular.Width + 1;
-        if (outher <= _sizeGameField.Width)
+        // Справа
+        outher = x + _rectangulars[_rectangularsIndex].SizeRectangular.Width;
+        if (outher < _sizeGameField.Width)
             for (var i = y; i < y + _rectangulars[_rectangularsIndex].SizeRectangular.Height; i++)
             {
                 if (_bottomLayer.Matrix[i][outher].Responsible == _rectangulars[_rectangularsIndex].Responsible)
@@ -177,11 +197,12 @@ public class GameField
                 }
             }
 
-        outher = y + _rectangulars[_rectangularsIndex].SizeRectangular.Height + 1;
-        if (outher <= _sizeGameField.Height)
+        // Снизу
+        outher = y + _rectangulars[_rectangularsIndex].SizeRectangular.Height;
+        if (outher < _sizeGameField.Height)
             for (var i = x; i < x + _rectangulars[_rectangularsIndex].SizeRectangular.Width; i++)
             {
-                if (_bottomLayer.Matrix[y + _rectangulars[_rectangularsIndex].SizeRectangular.Height + 1][i].Responsible == _rectangulars[_rectangularsIndex].Responsible)
+                if (_bottomLayer.Matrix[y + _rectangulars[_rectangularsIndex].SizeRectangular.Height][i].Responsible == _rectangulars[_rectangularsIndex].Responsible)
                 {
                     return true;
                 }
@@ -215,6 +236,8 @@ public class GameField
         _players[_indexPlayerNow].AddPoint(_rectangulars[_rectangularsIndex].GetSquare());
         
         SpawnRectangular();
+        
+        _pass = 0;
         
     }
 
@@ -268,18 +291,9 @@ public class GameField
         
         _topLayer.Clear();
         
-        Frame.ConsoleWrite(baseLayers, _players[_indexPlayerNow]);
+        Frame.ConsoleWrite(baseLayers, _players[_indexPlayerNow], _players, _rectangulars[_rectangularsIndex], _pass);
         
-        Log.Clear();
-        
-        foreach (var player in _players)
-        {
-            Log.AddLn(player.ToString());
-        }
-        
-        Log.AddLn(_rectangulars[_rectangularsIndex].SizeRectangular.ToString());
-        
-        // Log.Show();
+        Log.Show();
        
     }
     
@@ -373,6 +387,20 @@ public class GameField
                 cellOne, cellTwo,
                 Mapping.VerticalLine, Mapping.LowerLeftCorner,
                 Mapping.LowerRightCorner, Mapping.HorizontalLine
+            )) return true;
+        
+        // Вехние правый угл и вертикальная линия
+        if (ChangeSymbol(
+                cellOne, cellTwo,
+                Mapping.UpperLeftCorner, Mapping.UpperRightCorner,
+                Mapping.VoidSquare, null
+            )) return true;
+        
+        // Вехние правый угл и вертикальная линия
+        if (ChangeSymbol(
+                cellOne, cellTwo,
+                Mapping.LowerLeftCorner, Mapping.LowerRightCorner,
+                Mapping.VoidSquare, null
             )) return true;
         
         return false;

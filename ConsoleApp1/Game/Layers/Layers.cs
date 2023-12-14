@@ -46,6 +46,7 @@ public abstract class Layers
                 cell.CoordinatesCell.Y + shift.ShiftY
             );
             Console.ForegroundColor = cell.GetColor();
+            
             Console.Write(cell.GetDisplay());
             Console.ForegroundColor = ConsoleColor.White;
         }

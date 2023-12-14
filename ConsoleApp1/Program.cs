@@ -22,7 +22,7 @@ abstract class Program
         var size = new Size(100, 30);
         
         
-        var gameField = new GameField(size, 4);
+        var gameField = new GameField(size, 2);
         
         while (true) { }
     }

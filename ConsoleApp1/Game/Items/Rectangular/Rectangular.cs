@@ -26,9 +26,6 @@ public class Rectangular
     }
     public Coordinates CoordinatesParam { get; set; }
     
-    // _rectangularsSize.Width = _sealBone.Throw() + 4;
-    // _rectangularsSize.Height = _sealBone.Throw() + 3;
-    
     public static readonly Size DefaultSizeRectangularPlus = new (4, 3);
     
     public Rectangular(Size sizeRectangular, Player player, Shift? shift = null, Coordinates? coor = null)
@@ -139,7 +136,11 @@ public class Rectangular
         return RectangularPoint;
         
     }
+
+    public int GetSquare()
+    {
+        return (SizeRectangular.Width - DefaultSizeRectangularPlus.Width) * (SizeRectangular.Height- DefaultSizeRectangularPlus.Height);
+    }
     
-    public int GetSquare() => SizeRectangular.Width * SizeRectangular.Height;
     
 }
