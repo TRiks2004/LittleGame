@@ -1,4 +1,4 @@
-namespace ConsoleApp1.Game.Rules.Management;
+namespace ConsoleApp1.Game.Terms.Management;
 
 
 

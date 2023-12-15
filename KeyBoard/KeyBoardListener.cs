@@ -26,6 +26,8 @@ public class KeyBoardListener
     public event KeyPresEvent? OnKeyPressEnter;
     public event KeyPresEvent? OnKeyPressSpace;
     
+    public event KeyPresEvent? OnKeyPressExit;
+    
     private bool _isKeyBoardListenerRunning;
 
     public KeyBoardListener() { }
@@ -38,20 +40,18 @@ public class KeyBoardListener
         {
             while (_isKeyBoardListenerRunning)
             {
-               
-                if (Console.KeyAvailable)
-                {
-                  
-                    var key = Console.ReadKey(intercept: true);
-                    
-                    if      (key.Key == ButtonControl.Up)    OnExecutionEvent(OnKeyPressUp);
-                    else if (key.Key == ButtonControl.Down)  OnExecutionEvent(OnKeyPressDown);
-                    else if (key.Key == ButtonControl.Left)  OnExecutionEvent(OnKeyPressLeft);
-                    else if (key.Key == ButtonControl.Right) OnExecutionEvent(OnKeyPressRight);
-                    else if (key.Key == ButtonControl.Enter) OnExecutionEvent(OnKeyPressEnter);
-                    else if (key.Key == ButtonControl.Space) OnExecutionEvent(OnKeyPressSpace);
-                }
+                if (!Console.KeyAvailable) continue;
+                var key = Console.ReadKey(intercept: true);
+                
+                if      (key.Key == ButtonControl.Up)      OnExecutionEvent(OnKeyPressUp);
+                else if (key.Key == ButtonControl.Down)    OnExecutionEvent(OnKeyPressDown);
+                else if (key.Key == ButtonControl.Left)    OnExecutionEvent(OnKeyPressLeft);
+                else if (key.Key == ButtonControl.Right)   OnExecutionEvent(OnKeyPressRight);
+                else if (key.Key == ButtonControl.Enter)   OnExecutionEvent(OnKeyPressEnter);
+                else if (key.Key == ButtonControl.Space)   OnExecutionEvent(OnKeyPressSpace);
+                else if (key.Key == ButtonControl.Escape)  OnExecutionEvent(OnKeyPressExit);
             }
+            
         }).Start();
     }
     
@@ -63,8 +63,8 @@ public class KeyBoardListener
     
     private void OnExecutionEvent(KeyPresEvent? eventHandler)
     {
-        eventHandler?.Invoke();
-        
+        if (eventHandler == null) return;
+        eventHandler();
         OnKeyPress?.Invoke();
     }
     
@@ -79,5 +79,7 @@ public class KeyBoardListener
         
         OnKeyPressEnter = null;
         OnKeyPressSpace = null;
+        
+        OnKeyPressExit = null;
     }
 }

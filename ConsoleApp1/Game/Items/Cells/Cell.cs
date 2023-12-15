@@ -13,7 +13,9 @@ public abstract class Cell
     public Player? Responsible { get; set; }
 
     public bool Ghost = false;
-    
+
+    public bool NotSpecialSymbol { get; set; }
+
     public Coordinates CoordinatesCell { get; set; }
     
     public Cell(Mapping display, Player? responsible, Coordinates coordinatesCell)
@@ -23,8 +25,11 @@ public abstract class Cell
         CoordinatesCell = coordinatesCell;
     }
     
-    public string GetDisplay() => Symbol.GetCharFromSymbol(Display);
-    
+    public string GetDisplay()
+    {
+        return Symbol.GetCharFromSymbol(Display);
+    }
+
     public ConsoleColor GetColor()
     {
         if (Responsible == null) return ConsoleColor.White;

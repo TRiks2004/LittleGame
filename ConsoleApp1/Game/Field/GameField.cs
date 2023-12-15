@@ -6,17 +6,16 @@ using ConsoleApp1.Game.Items.Rectangular;
 using ConsoleApp1.Game.Items.SealBone;
 using ConsoleApp1.Game.Layers;
 using ConsoleApp1.Game.Players;
-using ConsoleApp1.Game.Rules;
+using ConsoleApp1.Game.Terms.Management;
+using ConsoleApp1.Game.Terms.Rules;
 using KeyBoard;
 
 namespace ConsoleApp1.Game.Field;
 
-public class GameField
+public class GameField : Field
 {
     private readonly TopLayer _topLayer;
     private readonly BottomLayer _bottomLayer;
-
-    private readonly Size _sizeGameField;
 
     private readonly List<Player> _players = new List<Player>();
     
@@ -53,13 +52,14 @@ public class GameField
     private int _pass;
     
     
-    public GameField(Size sizeGameField, int countPlayers, GameRules? gameRules = null)
+    public GameField(Size sizeGameField, int countPlayers, GameRules? gameRules = null) : base(sizeGameField)
     {
-        _sizeGameField = sizeGameField;
         _rules = gameRules ?? new GameRules();
+
+        Management = new ManagementGame();
         
-        _topLayer = new TopLayer(_sizeGameField);
-        _bottomLayer = new BottomLayer(_sizeGameField);
+        _topLayer = new TopLayer(SizeGameField);
+        _bottomLayer = new BottomLayer(SizeGameField);
         
         #region Инициализация игроков
         
@@ -82,20 +82,18 @@ public class GameField
         _rectangulars.Add(new Rectangular(_rectangularsSize, _players[_indexPlayerNow]));
         
         #region Инициализация клавиатуры
-
-        var listener = new KeyBoardListener();
-
-        listener.OnKeyPress += ConsoleWrite;
         
-        listener.OnKeyPressUp += ListenerOnOnKeyPressUp;
-        listener.OnKeyPressDown +=ListenerOnOnKeyPressDown;
-        listener.OnKeyPressRight += ListenerOnOnKeyPressRight; 
-        listener.OnKeyPressLeft += ListenerOnOnKeyPressLeft;
+        Listener.OnKeyPress += ConsoleWrite;
         
-        listener.OnKeyPressSpace += ListenerOnOnKeyPressSpace;
-        listener.OnKeyPressEnter += ListenerOnOnKeyPressEnter;
+        Listener.OnKeyPressUp += ListenerOnOnKeyPressUp;
+        Listener.OnKeyPressDown +=ListenerOnOnKeyPressDown;
+        Listener.OnKeyPressRight += ListenerOnOnKeyPressRight; 
+        Listener.OnKeyPressLeft += ListenerOnOnKeyPressLeft;
         
-        listener.StartKeyBoardListener();
+        Listener.OnKeyPressSpace += ListenerOnOnKeyPressSpace;
+        Listener.OnKeyPressEnter += ListenerOnOnKeyPressEnter;
+        
+        Listener.StartKeyBoardListener();
 
         #endregion
         
@@ -139,12 +137,12 @@ public class GameField
 
         if (!_players[_indexPlayerNow].PositionPlayer.UpCorner)
         {
-            cords.Y = _sizeGameField.Height - _rectangularsSize.Height;
+            cords.Y = SizeGameField.Height - _rectangularsSize.Height;
         }
         
         if (!_players[_indexPlayerNow].PositionPlayer.LeftCorner)
         {
-            cords.X  = _sizeGameField.Width - _rectangularsSize.Width;
+            cords.X  = SizeGameField.Width - _rectangularsSize.Width;
         } 
         
         _rectangulars.Add(new Rectangular(
@@ -188,7 +186,7 @@ public class GameField
 
         // Справа
         outher = x + _rectangulars[_rectangularsIndex].SizeRectangular.Width;
-        if (outher < _sizeGameField.Width)
+        if (outher < SizeGameField.Width)
             for (var i = y; i < y + _rectangulars[_rectangularsIndex].SizeRectangular.Height; i++)
             {
                 if (_bottomLayer.Matrix[i][outher].Responsible == _rectangulars[_rectangularsIndex].Responsible)
@@ -199,7 +197,7 @@ public class GameField
 
         // Снизу
         outher = y + _rectangulars[_rectangularsIndex].SizeRectangular.Height;
-        if (outher < _sizeGameField.Height)
+        if (outher < SizeGameField.Height)
             for (var i = x; i < x + _rectangulars[_rectangularsIndex].SizeRectangular.Width; i++)
             {
                 if (_bottomLayer.Matrix[y + _rectangulars[_rectangularsIndex].SizeRectangular.Height][i].Responsible == _rectangulars[_rectangularsIndex].Responsible)
@@ -258,14 +256,14 @@ public class GameField
     private void ListenerOnOnKeyPressDown()
     {
         if(_rectangulars[_rectangularsIndex].CoordinatesParam.Y 
-            + _rectangulars[_rectangularsIndex].SizeRectangular.Height >= _sizeGameField.Height) return;
+            + _rectangulars[_rectangularsIndex].SizeRectangular.Height >= SizeGameField.Height) return;
         _rectangulars[_rectangularsIndex].GoDown();
     }
 
     private void ListenerOnOnKeyPressRight()
     {
         if(_rectangulars[_rectangularsIndex].CoordinatesParam.X
-            + _rectangulars[_rectangularsIndex].SizeRectangular.Width >= _sizeGameField.Width) return;
+            + _rectangulars[_rectangularsIndex].SizeRectangular.Width >= SizeGameField.Width) return;
         _rectangulars[_rectangularsIndex].GoRight();
     }
 
@@ -276,8 +274,10 @@ public class GameField
         _indexPlayerNow = _indexPlayerNow + 1 < _players.Count ? _indexPlayerNow + 1 : 0; 
     }
 
-    public void ConsoleWrite()
+    public sealed override void ConsoleWrite()
     {
+        Console.Clear();
+        
         var rectangularCells = _rectangulars[_rectangularsIndex].GetRectangular();
         
         foreach (var rectangular in rectangularCells.SelectMany(t => t))
@@ -290,13 +290,19 @@ public class GameField
         var baseLayers = _topLayer + _bottomLayer;
         
         _topLayer.Clear();
-        
-        Frame.ConsoleWrite(baseLayers, _players[_indexPlayerNow], _players, _rectangulars[_rectangularsIndex], _pass);
+
+        Frame.ConsoleWrite(baseLayers, _players[_indexPlayerNow], _players, _rectangulars[_rectangularsIndex], _pass,
+            Management);
         
         Log.Show();
        
     }
-    
+
+    public override void CloseField()
+    {
+        throw new NotImplementedException();
+    }
+
     #region  Изменить сивол для прямоугольника
 
     private void ChangeSymbolAll()

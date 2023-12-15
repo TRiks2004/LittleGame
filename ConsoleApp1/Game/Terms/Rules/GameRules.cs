@@ -1,6 +1,6 @@
-namespace ConsoleApp1.Game.Rules;
+namespace ConsoleApp1.Game.Terms.Rules;
 
-public class GameRules
+public class GameRules : Rules
 {
     /// <summary>
     /// Размешенные друг на друга
@@ -12,10 +12,9 @@ public class GameRules
     /// </summary>
     public bool StirredNextSimilarOne { get; set; } = true;
     
-    public GameRules()
-    {
-        
-    }
+    public static int DefaultCountPlayers { get; set; } = 2; 
+    
+    public GameRules() { }
     
     public GameRules(bool stirredEachOther, bool stirredNextSimilarOne)
     {

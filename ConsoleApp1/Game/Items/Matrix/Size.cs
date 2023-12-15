@@ -31,17 +31,7 @@ public class Size
         Width = width;
         Height = height;
     }
-
-    public static bool operator ==(Size size1, Size size2)
-    {
-        return size1.Width == size2.Width && size1.Height == size2.Height;
-    }
-
-    public static bool operator !=(Size size1, Size size2)
-    {
-        return !(size1 == size2);
-    }
-
+    
     public override string ToString()
     {
         return $"Width: {Width} x Height: {Height}";

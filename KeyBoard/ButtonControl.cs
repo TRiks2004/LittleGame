@@ -8,7 +8,7 @@ public static class ButtonControl
     public static readonly ConsoleKey Right = ConsoleKey.RightArrow;
     public static readonly ConsoleKey Left  = ConsoleKey.LeftArrow;
     
-    public static readonly ConsoleKey Menu  = ConsoleKey.Escape;
+    public static readonly ConsoleKey Escape  = ConsoleKey.Escape;
     public static readonly ConsoleKey Enter = ConsoleKey.Enter;
     public static readonly ConsoleKey Space = ConsoleKey.Spacebar;
 }
